@@ -17,15 +17,24 @@ $params = JFactory::getApplication()->getTemplate(true)->params;
 
 $app = JFactory::getApplication();
 $doc = JFactory::getDocument();
+$menu = $app->getMenu();
 $this->language = $doc->language;
 $this->direction = $doc->direction;
 
-
+$isFrontPage = $menu->getActive() == $menu->getDefault();
 // TODO: Implement dynamic columns
 // check modules
-//$showRightColumn	= ($this->countModules('position-3') or $this->countModules('position-6') or $this->countModules('position-8'));
-//$showbottom			= ($this->countModules('position-9') or $this->countModules('position-10') or $this->countModules('position-11'));
-//$showleft			= ($this->countModules('position-4') or $this->countModules('position-7') or $this->countModules('position-5'));
+$showContentTopLeft = ($this->countModules('content-top-left'));
+$showContentTopRight = ($this->countModules('content-top-right'));
+$showComponent = (!$isFrontPage);
+$showContentMiddleRight = ($this->countModules('content-middle-right'));
+$showContentBottomLeft = ($this->countModules('content-bottom-left'));
+$showContentBottomRight = ($this->countModules('content-bottom-right'));
+$showBottomLeft = ($this->countModules('bottom-left'));
+$showBottomMiddle = ($this->countModules('bottom-middle'));
+$showBottomRight = ($this->countModules('bottom-right'));
+$showFooterLeft = ($this->countModules('footer-left'));
+$showFooterRight = ($this->countModules('footer-right'));
 
 ?>
 <?php echo '<?'; ?>xml version="1.0" encoding="<?php echo $this->_charset; ?>"?>
@@ -60,7 +69,7 @@ $this->direction = $doc->direction;
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a href="#" class="navbar-brand">Hes</a>
+                            <a href="/" class="navbar-brand">Hes</a>
                         </div>
                         <div class="clear"></div>
                         <div class="navbar-collapse collapse" aria-expanded="false" style="height: 1.11111116409302px;">
@@ -71,33 +80,47 @@ $this->direction = $doc->direction;
             </header>
             <div class="clear"></div>
             <div class="main-content">
-                <div class="main-top">
-                    <div class="col-xs-12 col-sm-6 col-md-6 pddr10">
-                        <jdoc:include type="modules" name="content-top-left"/>
+                <?php if ($showContentTopLeft || $showContentTopRight) { ?>
+                    <div class="main-top">
+                        <div class="col-xs-12 col-sm-6 col-md-6 pddr10">
+                            <jdoc:include type="modules" name="content-top-left"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 pddl10">
+                            <jdoc:include type="modules" name="content-top-right"/>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 pddl10">
-                        <jdoc:include type="modules" name="content-top-right"/>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                <?php } ?>
+
                 <div class="main-content">
-                    <div class="col-xs-12 col-sm-8 col-sm-8 pddr10 left-section">
-                        <jdoc:include type="component"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-sm-4 right-section">
-                        <jdoc:include type="modules" name="content-middle-right"/>
-                    </div>
+                    <?php if ($showContentMiddleRight) { ?>
+                        <div class="col-xs-12 col-sm-8 col-sm-8 pddr10 left-section">
+                            <jdoc:include type="component"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-sm-4 right-section">
+                            <jdoc:include type="modules" name="content-middle-right"/>
+                        </div>
+                    <?php } else { ?>
+                        <?php if ($showComponent): ?>
+                            <div class="col-xs-12 col-sm-12 col-sm-12">
+                                <jdoc:include type="component"/>
+                            </div>
+                        <?php endif; ?>
+                    <?php } ?>
                     <div class="clear"></div>
                 </div>
-                <div class="main-top">
-                    <div class="col-xs-12 col-sm-6 col-md-6 pddr10">
-                        <jdoc:include type="modules" name="content-bottom-left"/>
+
+                <?php if ($showContentBottomLeft || $showContentBottomRight) { ?>
+                    <div class="main-top">
+                        <div class="col-xs-12 col-sm-6 col-md-6 pddr10">
+                            <jdoc:include type="modules" name="content-bottom-left"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 pddl10">
+                            <jdoc:include type="modules" name="content-bottom-right"/>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 pddl10">
-                        <jdoc:include type="modules" name="content-bottom-right"/>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                <?php } ?>
             </div>
             <div class="clear"></div>
             <hr class="sp-content">
@@ -116,11 +139,6 @@ $this->direction = $doc->direction;
             <footer id="footer">
                 <div class="container">
                     <div class="float-left">
-                        <span class="footer-contact float-left">Contacts:</span>
-                        <ul class="soc-media-ul">
-                            <li>(+374) 95 95 95 95</li>
-                            <li>email@hes.com</li>
-                        </ul>
                         <jdoc:include type="modules" name="footer-left"/>
                     </div>
                     <div class="copy float-right">

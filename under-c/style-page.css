@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.under-cons{
+	background:url(images/Construction-Worker-4-128.png) no-repeat;
+	height:128px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:20px;
+	text-transform:uppercase;
+	color:#0781a6;
+	padding-left:150px;
+	line-height:120px;
+	}
+.main{
+	width:600px;
+	margin:100px auto;
+}
+.wave{
+	background:url(images/wave.png) repeat-x;
+	height:128px;
+	margin-top:200px;}
