@@ -43,8 +43,7 @@ $showFooterRight = ($this->countModules('footer-right'));
     <head>
         <jdoc:include type="head"/>
         <meta charset="UTF-8">
-        <meta name="" content="">
-
+        <meta name="viewport" content="initial-scale=1"/>
         <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/style.css" type="text/css">
         <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/dist/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/dist/css/bootstrap.min.css">
